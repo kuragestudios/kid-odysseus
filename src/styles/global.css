@@ -1,0 +1,73 @@
+:root {
+  --bg: #0b0d17;
+  --bg-2: #10132233;
+  --panel: #131628;
+  --line: rgba(255, 255, 255, 0.07);
+  --text: #e6e8f0;
+  --muted: #8b90a8;
+  --cyan: #21e6f5;
+  --pink: #ff4fd8;
+  --font: "Avenir Next", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { color-scheme: dark; scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--cyan); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container { width: min(1080px, 92vw); margin: 0 auto; }
+
+h1, h2, h3 { line-height: 1.15; margin: 0 0 0.6em; letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); }
+h2 .accent { color: var(--pink); margin-right: 0.4em; }
+p { margin: 0 0 1em; }
+.muted { color: var(--muted); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.85em 1.5em;
+  border-radius: 8px;
+  border: 2px solid var(--cyan);
+  color: var(--cyan);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+.btn:hover { background: var(--cyan); color: var(--bg); text-decoration: none; box-shadow: 0 0 24px rgba(33, 230, 245, 0.45); }
+.btn-primary { background: var(--cyan); color: var(--bg); }
+.btn-primary:hover { background: #5cf0fb; }
+.btn-pink { border-color: var(--pink); color: var(--pink); }
+.btn-pink:hover { background: var(--pink); color: var(--bg); box-shadow: 0 0 24px rgba(255, 79, 216, 0.45); }
+
+.section { padding: clamp(3rem, 7vw, 6rem) 0; border-top: 1px solid var(--line); }
+
+.grid { display: grid; gap: 1.25rem; }
+@media (min-width: 720px) { .grid-3 { grid-template-columns: repeat(3, 1fr); } .grid-2 { grid-template-columns: repeat(2, 1fr); } }
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1.4rem;
+}
+.card h3 { font-size: 1.05rem; margin-bottom: 0.4em; }
+.card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }

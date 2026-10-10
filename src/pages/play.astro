@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL;
+const game = `${base}game/index.html`;
+const itch = 'https://kuragestudios.itch.io/kid-odysseus';
+---
+
+<Base title="Play Kid Odysseus" bare>
+  <div class="play">
+    <div class="bar">
+      <a class="back" href={base} title="Back to the site">← Kid Odysseus</a>
+      <span class="actions">
+        <a class="link" href={itch} target="_blank" rel="noopener">♥ Mac / Windows on itch.io</a>
+        <button id="fs" type="button" title="Fullscreen">⛶</button>
+      </span>
+    </div>
+    <iframe id="game" src={game} title="Kid Odysseus" allow="fullscreen; autoplay" allowfullscreen loading="eager"></iframe>
+  </div>
+</Base>
+
+<script>
+  const frame = document.getElementById('game') as HTMLIFrameElement;
+  document.getElementById('fs')?.addEventListener('click', () => {
+    (frame.requestFullscreen ?? (frame as any).webkitRequestFullscreen)?.call(frame);
+  });
+</script>
+
+<style>
+  .play { height: 100dvh; display: flex; flex-direction: column; }
+  .bar { flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.5rem 0.9rem; background: var(--panel); border-bottom: 1px solid var(--line); font-size: 0.9rem; }
+  .back { color: var(--text); font-weight: 600; }
+  .back:hover { text-decoration: none; color: var(--cyan); }
+  .actions { display: flex; align-items: center; gap: 0.8rem; }
+  .link { color: var(--pink); }
+  #fs { font: inherit; background: transparent; border: 1px solid var(--cyan); color: var(--cyan); border-radius: 6px; padding: 0.25em 0.6em; cursor: pointer; }
+  #fs:hover { background: var(--cyan); color: var(--bg); }
+  #game { flex: 1 1 auto; width: 100%; border: 0; background: var(--bg); }
+  @media (max-width: 640px) { .link { display: none; } }
+</style>

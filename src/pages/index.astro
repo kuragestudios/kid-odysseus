@@ -1,0 +1,341 @@
+---
+import Base from '../layouts/Base.astro';
+import palettes from '../../public/images/sprites/palettes.json';
+
+const base = import.meta.env.BASE_URL;
+const itch = 'https://kuragestudios.itch.io/kid-odysseus';
+const play = 'https://play.google.com/store/apps/details?id=com.studiokurage.kid';
+const sprite = (name: string) => `${base}images/sprites/${name}.png`;
+
+const screenshots = [
+  { src: 'carousel-run.jpg', alt: 'Run through the mazes' },
+  { src: 'carousel-gather.jpg', alt: 'Gather the magic pearls' },
+  { src: 'carousel-fight.jpg', alt: 'Fight the monsters' },
+  { src: 'carousel-retro.jpg', alt: 'Fun and retro' },
+];
+
+const gifs = ['gameplay-00.gif', 'gameplay-02.gif', 'gameplay-03.gif', 'gameplay-04.gif'];
+
+const quotes = [
+  { author: 'Eddy', text: 'Fun take on a classic, with interesting progression. Support is also responsive and effective. 5/5 will play again.' },
+  { author: 'Ggg Ggg', text: 'I like it a lot. It is like Pac-Man but with gravity!' },
+];
+
+const features = [
+  { icon: 'odysseus', title: 'Pac-Man With Gravity', text: 'Odysseus runs left and right along the platforms and drops through the gaps. Dash down to smash through the floor and escape.' },
+  { icon: 'maze', title: '16 Haunted Mazes', text: 'Gather every pearl to clear a maze. Moving platforms, levers, walkways, springs and magnets join in as you progress.' },
+  { icon: 'ghost', title: 'Monsters With A Mind', text: 'Each creature hunts differently: walkers, jumpers, flyers, frogs. Learn their patterns, or grab the hammer and fight back.' },
+  { icon: 'block', title: '16 Palettes To Unlock', text: 'Four colours on screen, 8-bit audio and a CRT filter you can switch off. Earn coins to unlock new palettes, and the whole game repaints itself.' },
+  { icon: 'hat-king', title: '16 Hats To Earn', text: 'Coins buy hats and boosters. Wear the crown, the sombrero or the viking helmet into the next maze.' },
+  { icon: 'heart', title: 'No Ads, No Accounts', text: 'Nothing to sign up for, nothing tracking you. Plays in portrait or landscape, on desktop or phone.' },
+];
+
+const controls = [
+  { action: 'Run left / right', touch: 'swipe left / right', keys: '← →', pad: 'left stick' },
+  { action: 'Dash down', touch: 'swipe down', keys: '↓', pad: 'left stick down' },
+  { action: 'Jump (with the boots)', touch: 'swipe up', keys: '↑', pad: 'left stick up' },
+  { action: 'Pause / back', touch: 'pause button', keys: 'Esc', pad: 'B' },
+];
+
+const items = [
+  { name: 'pearl', title: 'Pearl', text: 'Gather them all to clear the maze.' },
+  { name: 'coin', title: 'Coin', text: 'Spend them on hats and boosters.' },
+  { name: 'heart', title: 'Heart', text: 'One more life, per round.' },
+  { name: 'magnet', title: 'Magnet', text: 'Pulls the pearls to you.' },
+  { name: 'boots', title: 'Boots', text: 'Swipe up to jump.' },
+  { name: 'feather', title: 'Feather', text: 'Speed boost.' },
+  { name: 'hammer', title: 'Hammer', text: 'Smash the monsters for a while.' },
+  { name: 'spring', title: 'Spring', text: 'Bounces you back up.' },
+  { name: 'block', title: 'Box', text: 'Dash down to break through it.' },
+  { name: 'platform', title: 'Moving Platform', text: 'Rides up and down, or side to side.' },
+  { name: 'walkway', title: 'Walkway', text: 'Carries you along.' },
+  { name: 'bridge', title: 'Bridge', text: 'A thin floor across the gap.' },
+  { name: 'lever', title: 'Lever', text: 'Run through it to switch it, run back to switch it off.' },
+  { name: 'spikes', title: 'Spikes', text: 'Do not touch.' },
+];
+
+const monsters = [
+  { name: 'ghost', title: 'Ghost' },
+  { name: 'skull', title: 'Skull' },
+  { name: 'slime', title: 'Slime' },
+  { name: 'frog', title: 'Frog' },
+  { name: 'knight', title: 'Knight' },
+  { name: 'eye', title: 'Eye' },
+  { name: 'spectrum', title: 'Spectrum' },
+];
+
+const hats = [
+  { file: 'default', title: 'Original' }, { file: 'cap', title: 'Cap' }, { file: 'magician', title: 'Magician' }, { file: 'cook', title: 'Cook' },
+  { file: 'mexican', title: 'Sombrero' }, { file: 'rabbit', title: 'Rabbit' }, { file: 'viking', title: 'Viking' }, { file: 'bandana', title: 'Bandana' },
+  { file: 'deamon', title: 'Deamon' }, { file: 'christmas', title: 'Christmas' }, { file: 'sorcerer', title: 'Sorcerer' }, { file: 'fez', title: 'Fez' },
+  { file: 'aventurer', title: 'Aventurer' }, { file: 'aviator', title: 'Aviator' }, { file: 'pirate', title: 'Pirate' }, { file: 'king', title: 'King' },
+];
+
+const mazeNames = ["Marble Garden", "Windy Valley", "Lava Mountain", "Desert Road", "Coco Island", "Coral Cave", "Crystal Lake", "Sky Sanctuary", "Space Lagoon", "Hidden Palace", "Treasure Wall", "Jungle Waterfall", "Emerald River", "Misty Forest", "Hunted Castle", "Magic Night"];
+
+const paletteNames = ["Arcade", "Iceberg", "Sepia", "Sunset", "Candy", "Jungle", "Modern", "Cool", "Hell", "Chocolate", "Peaceful", "Space", "GBoy", "VBoy", "Urban", "Futurist"];
+
+const whatsNew = [
+  'plays in portrait or landscape: the maze fills the short side of the screen, the HUD moves around it',
+  'keyboard and gamepad controls next to the original swipes',
+  'free in the browser, downloadable on Mac and Windows',
+];
+---
+
+<Base title="Kid Odysseus — free retro maze arcade game in your browser">
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <img class="hero-logo" src={`${base}images/logo.png`} alt="Kid Odysseus" width="320" height="192" />
+        <p class="tagline">Run through sixteen haunted mazes, gather the magic pearls and dodge the monsters. Pac-Man with gravity, in four colours and 8-bit sound.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href={`${base}play/`}>▶ Play free in your browser</a>
+          <a class="btn btn-pink" href={itch} target="_blank" rel="noopener">♥ Get it for Mac / Windows</a>
+        </div>
+        <p class="muted small">Works on desktop and phone. No install, no account.</p>
+      </div>
+      <div class="hero-shot">
+        <img src={`${base}images/carousel-title.jpg`} alt="Kid Odysseus title screen" width="480" loading="eager" />
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="section">
+    <div class="container">
+      <h2><span class="accent">▮</span>How It Plays</h2>
+      <div class="grid grid-3">
+        {features.map((f) => (
+          <div class="card">
+            <img class="pixel card-icon" src={sprite(f.icon)} alt="" />
+            <h3>{f.title}</h3>
+            <p>{f.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="story" class="section story">
+    <div class="container story-inner">
+      <div>
+        <h2><span class="accent">▮</span>The Legend Of The Pearls</h2>
+        <p>Once upon a time, a young boy was looking for adventure. Odysseus loves fantasy tales, and above all the legend of the crystal pearls. On his eighth birthday he sets off on a long journey to find them: sixteen magical mazes scattered around the kingdom.</p>
+        <p class="muted">Be careful, young boy. The mazes are haunted by powerful monsters!</p>
+        <a class="btn" href={`${base}play/`}>Start the journey</a>
+      </div>
+      <div class="video">
+        <iframe src="https://www.youtube-nocookie.com/embed/GdV5L1pPlcc?rel=0" title="Kid Odysseus trailer" allow="autoplay; encrypted-media; fullscreen" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section id="mazes" class="section">
+    <div class="container">
+      <h2><span class="accent">▮</span>Sixteen Mazes</h2>
+      <p class="muted">Every maze wraps around its edges, and the later ones bring their own tricks. Here they are as the stage selector draws them, each in a different palette.</p>
+      <ol class="mazes">
+        {Array.from({ length: 16 }, (_, i) => (
+          <li>
+            <img class="pixel" src={sprite(`maze-${String(i).padStart(2, '0')}`)} alt={mazeNames[i]} width="144" height="144" loading="lazy" />
+            <span>{mazeNames[i]}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section id="how-to-play" class="section">
+    <div class="container">
+      <h2><span class="accent">▮</span>How To Play</h2>
+      <div class="howto">
+        <div class="table-wrap">
+          <table class="controls">
+            <thead><tr><th></th><th>Touch</th><th>Keyboard</th><th>Gamepad</th></tr></thead>
+            <tbody>
+              {controls.map((c) => (
+                <tr><th>{c.action}</th><td>{c.touch}</td><td><kbd>{c.keys}</kbd></td><td>{c.pad}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <ul class="items">
+          {items.map((i) => (
+            <li>
+              <img class="pixel" src={sprite(i.name)} alt="" />
+              <span><strong>{i.title}</strong> <span class="muted">{i.text}</span></span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <p class="muted small">Every hit costs a heart. When the last one is gone you can revive on the spot for coins, and the price goes up each time, or call it a run and take your score to the results screen.</p>
+    </div>
+  </section>
+
+  <section id="monsters" class="section">
+    <div class="container">
+      <h2><span class="accent">▮</span>Meet The Monsters</h2>
+      <ul class="sprites">
+        {monsters.map((m) => (
+          <li><img class="pixel" src={sprite(m.name)} alt={m.title} /><span>{m.title}</span></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section id="hats" class="section">
+    <div class="container">
+      <h2><span class="accent">▮</span>Sixteen Hats</h2>
+      <p class="muted">Coins buy hats. Some need a level first. Odysseus wears his cap by default.</p>
+      <ul class="sprites hats">
+        {hats.map((h) => (
+          <li><img class="pixel" src={sprite(`hat-${h.file}`)} alt={h.title} /><span>{h.title}</span></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section id="palettes" class="section">
+    <div class="container">
+      <h2><span class="accent">▮</span>Sixteen Palettes</h2>
+      <p class="muted">Four colours at a time. You start with Arcade; the others are unlocked with coins as you level up, and the whole game repaints itself, monsters and menus included.</p>
+      <ul class="palettes">
+        {palettes.map((p, i) => (
+          <li>
+            <div class="swatches" style={`background: linear-gradient(90deg, ${p[0]} 0 25%, ${p[1]} 25% 50%, ${p[2]} 50% 75%, ${p[3]} 75%)`}>
+              <img class="pixel" src={sprite(`palette-${String(i).padStart(2, '0')}`)} alt="" />
+            </div>
+            <span>{paletteNames[i]}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2><span class="accent">▮</span>In Motion</h2>
+      <div class="gifs">
+        {gifs.map((g) => <img src={`${base}images/${g}`} alt="Kid Odysseus gameplay" loading="lazy" width="288" height="288" />)}
+      </div>
+      <div class="quotes">
+        {quotes.map((q) => (
+          <blockquote>
+            <p>“{q.text}”</p>
+            <cite>— {q.author}</cite>
+          </blockquote>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2><span class="accent">▮</span>Screenshots</h2>
+      <div class="shots">
+        {screenshots.map((s) => <img src={`${base}images/${s.src}`} alt={s.alt} loading="lazy" width="320" />)}
+      </div>
+    </div>
+  </section>
+
+  <section id="download" class="section">
+    <div class="container">
+      <h2><span class="accent">▮</span>Play Free, Or Say Thanks</h2>
+      <div class="grid grid-3 download">
+        <div class="card">
+          <h3>Browser</h3>
+          <p class="price">Free</p>
+          <p>The complete game, right here. Nothing to install.</p>
+          <a class="btn btn-primary" href={`${base}play/`}>Play now</a>
+        </div>
+        <div class="card highlight">
+          <h3>Mac &amp; Windows</h3>
+          <p class="price">On itch.io</p>
+          <p>Offline, full screen, any window size. It is the "thank you" that keeps the lights on.</p>
+          <a class="btn btn-pink" href={itch} target="_blank" rel="noopener">Get it on itch.io</a>
+        </div>
+        <div class="card">
+          <h3>Android</h3>
+          <p class="price">Coming back</p>
+          <p>The Google Play version is being refreshed with this release.</p>
+          <a class="btn" href={play} target="_blank" rel="noopener">Google Play</a>
+        </div>
+      </div>
+      <div class="whatsnew">
+        <h3>What's New In 1.3</h3>
+        <ul>{whatsNew.map((w) => <li>{w}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .pixel { image-rendering: pixelated; }
+
+  .hero { padding: clamp(3rem, 8vw, 6rem) 0 clamp(2rem, 5vw, 4rem); background: radial-gradient(ellipse at 20% 0%, rgba(33, 230, 245, 0.12), transparent 55%), radial-gradient(ellipse at 90% 100%, rgba(255, 79, 216, 0.12), transparent 55%); }
+  .hero-inner { display: grid; gap: 2.5rem; align-items: center; }
+  @media (min-width: 860px) { .hero-inner { grid-template-columns: 1.2fr 0.8fr; } }
+  .hero-logo { width: min(100%, 480px); height: auto; image-rendering: pixelated; filter: drop-shadow(0 0 24px rgba(33, 230, 245, 0.35)); }
+  .tagline { font-size: clamp(1.1rem, 2vw, 1.35rem); color: var(--text); max-width: 34em; margin-top: 1.2rem; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 1.4rem 0 0.8rem; }
+  .small { font-size: 0.9rem; }
+  .hero-shot img { width: min(100%, 420px); margin: 0 auto; border-radius: 22px; border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55); }
+
+  .card-icon { height: 48px; width: auto; margin-bottom: 0.6rem; }
+
+  .story-inner { display: grid; gap: 2rem; align-items: center; }
+  @media (min-width: 860px) { .story-inner { grid-template-columns: 1fr 1.1fr; } }
+  .video { position: relative; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: #000; }
+  .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+  .mazes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.8rem; }
+  .mazes li { display: flex; flex-direction: column; gap: 0.4rem; }
+  .mazes img { width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); }
+  .mazes span { font-size: 0.8rem; color: var(--text); line-height: 1.3; }
+  .howto { display: grid; gap: 2rem; align-items: start; }
+  @media (min-width: 720px) { .items { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1000px) { .items { grid-template-columns: 1fr 1fr 1fr; } }
+  .table-wrap { width: 100%; }
+  .controls { width: 100%; border-collapse: collapse; font-size: 0.95rem; table-layout: fixed; }
+  .controls th, .controls td { text-align: left; padding: 0.7rem 0.6rem; overflow-wrap: anywhere; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  .controls thead th { color: var(--muted); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; }
+  .controls tbody th { color: var(--text); font-weight: 600; }
+  .controls td { color: var(--muted); }
+  kbd { font-family: var(--mono); font-size: 0.9em; padding: 0.15em 0.5em; border-radius: 6px; border: 1px solid var(--line); background: var(--panel); color: var(--cyan); }
+  .items { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+  .items li { display: flex; align-items: center; gap: 0.9rem; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 0.6rem 0.9rem; font-size: 0.9rem; }
+  .items li > span { display: flex; flex-direction: column; }
+  .items img { height: 40px; width: 40px; object-fit: contain; }
+  .items strong { color: var(--text); margin-right: 0.3em; }
+
+  .sprites { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 1rem; }
+  .sprites li { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 0.5rem; min-width: 96px; padding: 1rem 0.6rem; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; color: var(--muted); font-size: 0.85rem; }
+  .sprites img { max-height: 96px; max-width: 96px; width: auto; height: auto; }
+  .hats li { min-width: 88px; }
+  .hats img { max-height: 72px; max-width: 72px; }
+
+  .palettes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.8rem; }
+  .palettes li { display: flex; flex-direction: column; gap: 0.4rem; align-items: center; font-size: 0.8rem; color: var(--muted); }
+  .palettes li .swatches { width: 100%; }
+  .swatches { position: relative; aspect-ratio: 1; border-radius: 12px; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; }
+  .swatches img { height: 64px; width: auto; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6)); }
+
+  .gifs { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+  .gifs img { width: 100%; height: auto; border-radius: 16px; border: 1px solid var(--line); image-rendering: pixelated; }
+  .quotes { display: grid; gap: 1rem; }
+  @media (min-width: 720px) { .quotes { grid-template-columns: 1fr 1fr; } }
+  .quotes blockquote { margin: 0; background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--pink); border-radius: 12px; padding: 1rem 1.2rem; }
+  .quotes p { margin: 0 0 0.4em; }
+  .quotes cite { color: var(--muted); font-style: normal; font-size: 0.9rem; }
+
+  .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+  .shots img { width: 100%; border-radius: 16px; border: 1px solid var(--line); }
+
+  .download .card { display: flex; flex-direction: column; gap: 0.6rem; }
+  .download .card .btn { margin-top: auto; align-self: flex-start; }
+  .download .price { color: var(--cyan); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.8rem; }
+  .download .highlight { border-color: rgba(255, 79, 216, 0.5); box-shadow: 0 0 40px rgba(255, 79, 216, 0.12); }
+  .download .highlight .price { color: var(--pink); }
+  .whatsnew { margin-top: 2rem; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 1.2rem 1.4rem; }
+  .whatsnew h3 { font-size: 1rem; margin-bottom: 0.5em; }
+  .whatsnew ul { margin: 0; padding-left: 1.2em; color: var(--muted); }
+</style>
